@@ -1,0 +1,74 @@
+[project]
+name = "wise-mcp"
+version = "0.1.0"
+description = "A secure, scope-gated Model Context Protocol (MCP) server for the Wise (wise.com) API."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Nathan Jacas", email = "jacas.nathan@gmail.com" }]
+requires-python = ">=3.12"
+keywords = ["mcp", "wise", "transferwise", "model-context-protocol", "fintech", "invoices"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial",
+    "Typing :: Typed",
+]
+dependencies = [
+    "mcp>=2.3,<3",
+    "httpx>=0.28,<1",
+    "pydantic>=2.11,<3",
+    "cryptography>=45",
+]
+
+[project.urls]
+Homepage = "https://github.com/NathanJ60/wise-mcp"
+Issues = "https://github.com/NathanJ60/wise-mcp/issues"
+
+[project.scripts]
+wise-mcp = "wise_mcp.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=9",
+    "respx>=0.23",
+    "ruff>=0.17",
+    "mypy>=2",
+]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/wise_mcp"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM", "RUF", "ASYNC"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106", "S108", "S603"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["wise_mcp"]
+mypy_path = "src"
+
+[[tool.mypy.overrides]]
+module = ["respx.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

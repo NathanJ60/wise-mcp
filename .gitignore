@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Secrets and local data
+.env
+*.pem
+*.key
+audit.jsonl
+daily-spend.json
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
